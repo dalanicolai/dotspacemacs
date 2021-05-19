@@ -1,0 +1,83 @@
+#+TITLE: Dala's dotspacemacs file
+
+This page shows the contents of my README.org file, which is the literal version
+of my dotspacemacs file. In order to reload my dotspacemacs file using =SPC f e
+R= I have bound it to my custom [[Dotspacemacs sync function][my-sync-configuration-layers]]. Additionally to
+(re)load the updated dotspacemacs config I have added the line
+src_emacs-lisp{(org-babel-tangle-file "~/git/dotspacemacs/README.org")} to my
+[[https://github.com/dalanicolai/dotspacemacs/blob/8b9efe9242311addd745d7511cddf75cb731e135/init.el#L504][user-init]].
+
+* Layers
+#+begin_src emacs-lisp :tangle layers.el
+
+  (
+   ;; ----------------------------------------------------------------
+   ;; Example of useful layers you may want to use right away.
+   ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
+   ;; `M-m f e R' (Emacs style) to install them.
+   ;; ----------------------------------------------------------------
+   auto-completion
+   ;; better-defaults
+   emacs-lisp
+   git
+   ;; helm
+   ivy
+   lsp
+   markdown
+   multiple-cursors
+   org
+   (shell :variables
+          shell-default-height 30
+          shell-default-position 'bottom)
+   spell-checking
+   syntax-checking
+   ;; version-control
+   treemacs
+
+#+end_src
+
+#+begin_src emacs-lisp :tangle layers.el
+
+  clojure
+  pdf
+
+#+end_src
+
+#+begin_src emacs-lisp :tangle layers.el
+
+  ;; private layers
+  djvu)
+
+#+end_src
+
+* Additional packages
+#+begin_src emacs-lisp :tangle additional-packages.el
+
+ ebib
+
+#+end_src
+
+* User-config
+#+begin_src emacs-lisp :tangle user-config.el
+  (defun dotspacemacs/user-config ()
+    "Configuration for user code:
+  This function is called at the very end of Spacemacs startup, after layer
+  configuration.
+  Put your configuration code here, except for variables that should be set
+  before packages are loaded."
+
+#+end_src
+
+** Dotspacemacs sync function
+#+begin_src emacs-lisp :tangle user-config.el
+    (defun my-sync-configuration-layers (&optional arg)
+      (interactive "P")
+      (org-babel-tangle-file "~/git/dotspacemacs/README.org")
+      (dotspacemacs/sync-configuration-layers arg))
+
+  (spacemacs/set-leader-keys "feR" 'my-sync-configuration-layers)
+#+end_src
+
+#+begin_src emacs-lisp :tangle user-config.el
+  )
+#+end_src
